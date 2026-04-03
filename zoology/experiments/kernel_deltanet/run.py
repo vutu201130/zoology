@@ -155,3 +155,5 @@ for model in models:
             sweep_id=sweep_name,
             run_id=run_id,
         ))
+
+print('==REMOVEME len configs', len(configs))
