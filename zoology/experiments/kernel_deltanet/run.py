@@ -148,8 +148,8 @@ for model in models:
             learning_rate=lr,
             max_epochs=32,
             logger=LoggerConfig(
-                project_name="zoology",
-                entity="vutu201130-matrixone",
+                project_name=None,
+                entity=None,
             ),
             slice_keys=["num_kv_pairs"],
             sweep_id=sweep_name,
