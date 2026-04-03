@@ -2,7 +2,7 @@
 #PBS -P mb26
 #PBS -l ncpus=12,ngpus=1,mem=24gb
 #PBS -l storage=scratch/mb26
-#PBS -l walltime=4
+#PBS -l walltime=4:00:00
 #PBS -q gpuhopper
 #PBS -m be
 #PBS -l wd
