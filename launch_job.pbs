@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -P mb26
-#PBS -l ncpus=12,ngpus=1,mem=24gb
+#PBS -l ncpus=48,ngpus=4,mem=96gb
 #PBS -l storage=scratch/mb26
 #PBS -l walltime=4:00:00
 #PBS -q gpuhopper
@@ -9,6 +9,5 @@
 
 cd /scratch/mb26/tv8394/workspace/zoology/
 
-
-export WANDB_MODE=disabled
-python -m zoology.launch zoology/experiments/kernel_deltanet/run.py
+export WANDB_MODE=offline
+python -m zoology.launch zoology/experiments/kernel_deltanet/run.py -p
