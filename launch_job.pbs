@@ -10,5 +10,5 @@
 cd /scratch/mb26/tv8394/workspace/zoology/
 
 
-export WANDB_DISABLED=true
+export WANDB_MODE=disabled
 python -m zoology.launch zoology/experiments/kernel_deltanet/run.py
