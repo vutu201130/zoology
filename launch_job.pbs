@@ -10,4 +10,4 @@
 cd /scratch/mb26/tv8394/workspace/zoology/
 
 export WANDB_MODE=offline
-python -m zoology.launch zoology/experiments/kernel_deltanet/run.py -p
+python -m zoology.launch zoology/experiments/kernel_deltanet/run_quick.py -p >> log.txt
