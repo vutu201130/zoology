@@ -2,15 +2,27 @@
 #PBS -P mb26
 #PBS -l ncpus=48,ngpus=4,mem=96gb
 #PBS -l storage=scratch/mb26
-#PBS -l walltime=2:00:00
+#PBS -l walltime=4:00:00
 #PBS -q gpuhopper
 #PBS -m be
 #PBS -l wd
 
 cd /scratch/mb26/tv8394/workspace/zoology/
 rm -rf wandb/*
-rm log.txt
+rm -f log.txt
 
-# export WANDB_API_KEY=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
 export WANDB_MODE=offline
-python -m zoology.launch zoology/experiments/kernel_deltanet/run_multiscale.py -p >> log.txt
+export TRITON_CACHE_DIR=/scratch/mb26/tv8394/triton_cache
+
+# CUDA_LAUNCH_BLOCKING=1: CUDA errors trở thành synchronous
+# → lỗi "illegal memory access" sẽ xuất hiện đúng dòng gây ra
+# thay vì crash ở chỗ ngẫu nhiên sau đó
+export CUDA_LAUNCH_BLOCKING=1
+
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] Job started on $(hostname)" >> log.txt
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] GPUs: $(nvidia-smi --query-gpu=name --format=csv,noheader | tr '\n' ',')" >> log.txt
+
+# 2>&1 capture cả stderr → CUDA errors không bị mất
+python -m zoology.launch zoology/experiments/kernel_deltanet/run_multiscale.py -p >> log.txt 2>&1
+
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] Job finished, exit code: $?" >> log.txt
