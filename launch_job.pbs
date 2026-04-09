@@ -13,6 +13,8 @@ rm -f log.txt
 
 export WANDB_MODE=offline
 export TRITON_CACHE_DIR=/scratch/mb26/tv8394/triton_cache
+# xóa cache cũ (có thể compiled cho V100/sm_70, không dùng được trên H200/sm_90)
+rm -rf $TRITON_CACHE_DIR/*
 
 # CUDA_LAUNCH_BLOCKING=1: CUDA errors trở thành synchronous
 # → lỗi "illegal memory access" sẽ xuất hiện đúng dòng gây ra
