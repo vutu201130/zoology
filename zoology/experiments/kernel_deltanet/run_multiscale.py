@@ -107,7 +107,7 @@ for d_model in [64, 128]:
 configs = []
 for model in models:
     for lr in np.logspace(-3, -1.5, 4):
-        run_id = f"gadi_{model.name}-d{model.d_model}-lr{lr:.1e}"
+        run_id = f"vastai_{model.name}-d{model.d_model}-lr{lr:.1e}"
         configs.append(TrainConfig(
             model=model,
             data=data,
