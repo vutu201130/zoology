@@ -91,7 +91,7 @@ models = [m for m in models if m.d_model == 128]
 configs = []
 for model in models:
     for lr in np.logspace(-3, -1.5, 4):
-        run_id = f"{model.name}-d{model.d_model}-lr{lr:.1e}"
+        run_id = f"find_gap_{model.name}-d{model.d_model}-lr{lr:.1e}"
         configs.append(TrainConfig(
             model=model,
             data=data,
