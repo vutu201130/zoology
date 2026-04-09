@@ -7,9 +7,10 @@
 #PBS -m be
 #PBS -l wd
 
+
 cd /scratch/mb26/tv8394/workspace/zoology/
+rm -rf wandb/*
 
-export TRITON_CACHE_DIR=/scratch/mb26/tv8394/triton_cache
-
+# export WANDB_API_KEY=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
 export WANDB_MODE=offline
-python -m zoology.launch zoology/experiments/kernel_deltanet/run.py -p >> log.txt
+python -m zoology.launch zoology/experiments/kernel_deltanet/r -p >> log.txt
