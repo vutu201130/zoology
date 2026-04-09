@@ -10,16 +10,16 @@ from zoology.data.multiquery_ar import MQARConfig
 config = TrainConfig(
     data=DataConfig(
         train_configs=[
-            MQARConfig(vocab_size=256, input_seq_len=256, num_examples=200, num_kv_pairs=16),
+            MQARConfig(vocab_size=8192, input_seq_len=256, num_examples=200, num_kv_pairs=16),
         ],
         test_configs=[
-            MQARConfig(vocab_size=256, input_seq_len=512,  num_examples=50, num_kv_pairs=64),
-            MQARConfig(vocab_size=256, input_seq_len=1024, num_examples=50, num_kv_pairs=128),
+            MQARConfig(vocab_size=8192, input_seq_len=512,  num_examples=50, num_kv_pairs=64),
+            MQARConfig(vocab_size=8192, input_seq_len=1024, num_examples=50, num_kv_pairs=128),
         ],
         batch_size=(16, 8),
     ),
     model=ModelConfig(
-        vocab_size=256,
+        vocab_size=8192,
         d_model=64,
         n_layers=2,
         max_position_embeddings=0,
