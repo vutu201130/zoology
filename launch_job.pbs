@@ -9,5 +9,7 @@
 
 cd /scratch/mb26/tv8394/workspace/zoology/
 
+export TRITON_CACHE_DIR=/scratch/mb26/tv8394/triton_cache
+
 export WANDB_MODE=offline
-python -m zoology.launch zoology/experiments/kernel_deltanet/run_quick.py -p >> log.txt
+python -m zoology.launch zoology/experiments/kernel_deltanet/run.py -p >> log.txt
