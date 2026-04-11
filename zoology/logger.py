@@ -16,7 +16,8 @@ class WandbLogger:
         self.run = wandb.init(
             name=config.run_id,
             entity=config.logger.entity,
-            project=config.logger.project_name, 
+            project=config.logger.project_name,
+            tags=config.logger.tags if config.logger.tags else None,
         )
         # wandb.run.log_code(
         #     root=str(Path(__file__).parent.parent),

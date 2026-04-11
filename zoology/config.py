@@ -117,6 +117,7 @@ class LoggerConfig(BaseConfig):
 
     project_name: str = None
     entity: str = None
+    tags: list = []
     
 
 class TrainConfig(BaseConfig):
