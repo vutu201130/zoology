@@ -50,7 +50,7 @@ def make_config(name, mixer_dict):
             **base_kwargs,
         ),
         learning_rate=1e-3,
-        max_epochs=2,
+        max_epochs=1,
     )
 
 
