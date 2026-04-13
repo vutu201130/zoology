@@ -168,6 +168,11 @@ class DeltaNetReBased(nn.Module):
         q = self.feature_map_q(q)
         k = self.feature_map_k(k)
 
+        # L2-normalize after feature map so k·k=1 — required for delta rule stability.
+        # Without this, expanded_dim=66 elements each ~0.3 → k·k≈6 → erase term explodes → NaN.
+        q = torch.nn.functional.normalize(q, p=2, dim=-1)
+        k = torch.nn.functional.normalize(k, p=2, dim=-1)
+
         if self.use_beta:
             beta = self.b_proj(hidden_states).sigmoid()
         else:

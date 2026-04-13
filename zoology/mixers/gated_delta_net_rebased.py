@@ -177,6 +177,10 @@ class GatedDeltaNetReBased(nn.Module):
         q = self.feature_map_q(q)
         k = self.feature_map_k(k)
 
+        # L2-normalize after feature map — same reason as DeltaNetReBased.
+        q = torch.nn.functional.normalize(q, p=2, dim=-1)
+        k = torch.nn.functional.normalize(k, p=2, dim=-1)
+
         beta = self.b_proj(hidden_states).sigmoid()
         g = -self.A_log.float().exp() * F.softplus(
             self.a_proj(hidden_states).float() + self.dt_bias
