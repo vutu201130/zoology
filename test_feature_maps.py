@@ -9,8 +9,10 @@ from fla.modules.feature_map import RebasedFeatureMap
 
 d = 8  # input dim per head
 B, T, H = 2, 16, 2  # batch, seq_len, heads
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}\n")
 
-x = torch.randn(B, T, H, d)
+x = torch.randn(B, T, H, d, device=device)
 
 # ── TaylorExp ──────────────────────────────────────────────────────────────────
 taylor = TaylorExp(input_dim=d)
@@ -20,15 +22,15 @@ print(f"TaylorExp:  input {list(x.shape)} -> output {list(out_taylor.shape)}")
 print(f"  expected output dim: 1 + {d} + {d}^2 = {1 + d + d**2}")
 
 # ── RebasedFeatureMap ──────────────────────────────────────────────────────────
-rebased = RebasedFeatureMap(head_dim=d, use_gamma=True, use_beta=True, normalize=True)
+rebased = RebasedFeatureMap(head_dim=d, use_gamma=True, use_beta=True, normalize=True).to(device)
 out_rebased = rebased(x)
 print(f"\nRebasedFeatureMap: input {list(x.shape)} -> output {list(out_rebased.shape)}")
 print(f"  expected output dim: {d}*({d}+1)//2 = {d*(d+1)//2}")
 
 # ── Sanity: kernel approximation k(q,k) = φ(q)·φ(k) ──────────────────────────
 print("\n── Kernel approximation check ────────────────────────────────")
-q = torch.randn(B, T, H, d)
-k = torch.randn(B, T, H, d)
+q = torch.randn(B, T, H, d, device=device)
+k = torch.randn(B, T, H, d, device=device)
 
 # TaylorExp: should approximate exp(q·k/sqrt(d))
 phi_q_t = taylor(q)
