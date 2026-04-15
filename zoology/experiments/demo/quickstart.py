@@ -7,7 +7,7 @@ Demo nhỏ để hiểu flow của zoology:
 Data rất nhỏ để chạy nhanh trên CPU/GPU bất kỳ.
 
 Run:
-    python -m zoology.launch zoology/zoology/experiments/demo/quickstart.py
+    python -m zoology.launch zoology/experiments/demo/quickstart.py
     # hoặc train một config:
     python -m zoology.train --config path/to/config.yaml
 """
@@ -73,13 +73,15 @@ MIXERS = {
         "kwargs": {"num_heads": 2, "dropout": 0.0},
     },
     # Based với TaylorExp feature map — linear attention
+    # num_heads=num_key_value_heads, d_model=128 → head_dim=128//2=64
     "based": {
         "name": "zoology.mixers.based.Based",
         "kwargs": {
             "l_max": SEQ_LEN,
             "feature_dim": 8,
             "feature_map": "taylor_exp",
-            "num_heads": 1,
+            "num_heads": 2,
+            "num_key_value_heads": 2,
         },
     },
 }
